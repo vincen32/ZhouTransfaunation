@@ -1,0 +1,31 @@
+qiime feature-table filter-samples \
+  --i-table table.qza \
+  --m-metadata-file Metadata_Zhou.txt \
+  --p-where "[Days-Since-Start]='28'" \
+  --o-filtered-table Day28-table.qza
+
+qiime composition add-pseudocount \
+  --i-table Day28-table.qza \
+  --o-composition-table Day28-comp-table.qza
+
+qiime composition ancom \
+  --i-table Day28-comp-table.qza \
+  --m-metadata-file Metadata_Zhou.txt \
+  --m-metadata-column DonationType \
+  --o-visualization ancom-DonationType-Day28.qzv
+
+qiime feature-table filter-samples \
+  --i-table table.qza \
+  --m-metadata-file Metadata_Zhou.txt \
+  --p-where "[Days-Since-Start]='0'" \
+  --o-filtered-table Day0-table.qza
+
+qiime composition add-pseudocount \
+  --i-table Day0-table.qza \
+  --o-composition-table Day0-comp-table.qza
+
+qiime composition ancom \
+  --i-table Day0-comp-table.qza \
+  --m-metadata-file Metadata_Zhou.txt \
+  --m-metadata-column DonationType \
+  --o-visualization ancom-DonationType-Day0.qzv
